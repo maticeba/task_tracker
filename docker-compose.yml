@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  django:
+    container_name: task_tracker
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 8000:8000
+    #environment:
+    volumes:
+      - ./task_tracker:/code/
+      - db_data:/code/db_data
+    stdin_open: true
+    tty: true
+
+volumes:
+  db_data:
