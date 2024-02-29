@@ -37,7 +37,7 @@ def test_change_state(client):
     payload = {
         "state": "progress"
     }
-    response = client.patch(f"/tasks/{task.id}/", data=json.dumps(payload), content_type="application/json")
+    response = client.post(f"/tasks/{task.id}/state/", data=json.dumps(payload), content_type="application/json")
 
     task.refresh_from_db()
     assert response.status_code == 200

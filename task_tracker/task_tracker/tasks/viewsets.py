@@ -23,10 +23,11 @@ class TaskViewset(ModelViewSet):
         return Response(serializer.data)
 
     def update(self, request, *args, **kwargs):
-        # The challenge didn't mentioned anything about updating other fields of the task so i dissabled thi option 
+        # The challenge didn't mentioned anything about updating other fields of the task so i dissabled this option 
         return Response('Method [PUT] not allowed', status=status.HTTP_405_METHOD_NOT_ALLOWED)
-
-    def partial_update(self, request, *args, **kwargs):
+    
+    @action(detail=True, methods=['POST'])
+    def state(self, request, pk):
         task = self.get_object()
         serializer = TaskPartialUpdateSerializer(task, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
